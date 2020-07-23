@@ -1,4 +1,50 @@
 # Teleop configuration for Xbox One controller
+# Left thumb-stick up/down for velocity, left/right for twist
+# Left shoulder button for enable
+# Right shoulder button for enable-turbo
+#
+#          LB                                       RB
+#          LT                                       RT
+#       _=====_                                  _=====_
+#      / _____ \                                / _____ \
+#    +.-'     '-.------------------------------.-'     '-.+
+#   /                        \ /                          \
+#  /      ___                / \                  (Y)      \
+# /    ,'"   "',         #         =                        |
+# |   /         \                             (X)     (B)   |
+# |   |   LJ    |                                           |
+# |    \       /      _                _          (A)       |
+# |     '.___.'    ,'"_"',          ,'" "',                 |
+# |               / _| |_ \        /       \                |
+# |               ||_   _||--------|  RJ   |                |
+# |              /\  |_|  /        \       /\               |
+# |             /  '.___.'          '.___.'  \              |
+# |            /    D-Pad                     \             |
+#  \          /                                \           /
+#   \________/                                  \_________/
+#
+#
+# BUTTON         Value
+#   LB             6
+#   RB             7
+#   A              0
+#   B              1
+#   X              2
+#   Y              3
+#   #              (not mapped)
+#   =              11
+#   LJ             13   (LJ can be pressed down like a button!)
+#   RJ             14   (RJ can be pressed down like a button!)
+#
+#    AXIS        Value
+# Left Horiz.      0
+# Left Vert.       1
+# Right Horiz.     2
+# Right Vert.      3
+#    LT            5
+#    RT            4
+# D-pad Horiz.     6
+# D-pad Vert.      7
 teleop_twist_joy:
   axis_linear: 1
   scale_linear: 0.4
