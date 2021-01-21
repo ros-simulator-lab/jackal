@@ -18,19 +18,28 @@
 
   <!-- If enabled, generate the LASER payload (by default, a SICK LMS111). -->
   <xacro:if value="$(optenv JACKAL_LASER 0)">
-    <xacro:if value="$(optenv JACKAL_LASER_HOKUYO 0)">
+    <xacro:property name="lidar_model" value="$(optenv JACKAL_LASER_MODEL lms1xx)" />
+
+    <xacro:if value="${lidar_model == 'lms1xx'}">
+      <xacro:include filename="$(find jackal_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro" />
+      <xacro:sick_lms1xx_mount prefix="$(optenv JACKAL_LASER_MOUNT front)"
+                         parent_link="$(optenv JACKAL_LASER_MOUNT front)_mount"
+                         topic="$(optenv JACKAL_LASER_TOPIC front/scan)"/>
+    </xacro:if>
+
+    <xacro:if value="${lidar_model == 'ust10'}">
       <xacro:include filename="$(find jackal_description)/urdf/accessories/hokuyo_ust10.urdf.xacro" />
       <xacro:hokuyo_ust10_mount prefix="$(optenv JACKAL_LASER_MOUNT front)"
                           parent_link="$(optenv JACKAL_LASER_MOUNT front)_mount"
                           topic="$(optenv JACKAL_LASER_TOPIC front/scan)" />
     </xacro:if>
 
-    <xacro:unless value="$(optenv JACKAL_LASER_HOKUYO 0)">
-      <xacro:include filename="$(find jackal_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro" />
-      <xacro:sick_lms1xx_mount prefix="$(optenv JACKAL_LASER_MOUNT front)"
-                         parent_link="$(optenv JACKAL_LASER_MOUNT front)_mount"
-                         topic="$(optenv JACKAL_LASER_TOPIC front/scan)"/>
-    </xacro:unless>
+    <xacro:if value="${lidar_model == 'vlp16'}">
+      <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro" />
+      <xacro:VLP-16 parent="$(optenv JACKAL_LASER_MOUNT front)_mount" topic="$(optenv JACKAL_LASER_TOPIC front/points)">
+        <origin xyz="$(optenv JACKAL_LASER_OFFSET 0 0 0)" rpy="$(optenv JACKAL_LASER_RPY 0 0 0)" />
+      </xacro:VLP-16>
+    </xacro:if>
   </xacro:if>
 
   <!-- If enabled, generate the upgraded Navsat payload (a Novatel Smart6). -->
